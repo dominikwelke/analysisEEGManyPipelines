@@ -7,6 +7,10 @@ import mne
 from mne_bids import BIDSPath, read_raw_bids
 import matplotlib.pyplot as plt
 import numpy as np
+#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
+
+import matplotlib
+matplotlib.use('Agg')
 
 sub_ids = [i for i in range(1,34)]
 
@@ -94,6 +98,12 @@ for sub_id in sub_ids:
 evoked_diff_group = evoked_diff.copy()
 evoked_diff_group.nave = len(sub_ids)
 evoked_diff_group.data = X[0].mean(axis=0).transpose(1,0) - X[1].mean(axis=0).transpose(1,0)
+
+evoked_nat.data = X[0].mean(axis=0).transpose(1,0)
+evoked_art.data = X[1].mean(axis=0).transpose(1,0)
+evokeds_ave = dict(natural=evoked_nat, manmade=evoked_art)
+fig = mne.viz.plot_compare_evokeds(evokeds_ave, combine='mean')
+fig[0].savefig('ave_compare.svg'.format(sub_id))
 
 # stats
 # see https://mne.tools/stable/auto_tutorials/stats-sensor-space/20_erp_stats.html#sphx-glr-auto-tutorials-stats-sensor-space-20-erp-stats-py
