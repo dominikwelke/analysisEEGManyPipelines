@@ -67,8 +67,8 @@ for sub_id in sub_ids:
         with open(fname_vhdr, 'r', encoding='UTF') as f:
             d_vhdr = f.readlines()
             #print(d_vhdr)
-        d_vhdr[4] = 'DataFile=sub-001_task-xxxx_eeg.dat\n'
-        d_vhdr[5] = 'MarkerFile=sub-001_task-xxxx_eeg.vmrk\n'
+        d_vhdr[4] = 'DataFile=sub-{:03d}_task-xxxx_eeg.dat\n'.format(sub_id)
+        d_vhdr[5] = 'MarkerFile=sub-{:03d}_task-xxxx_eeg.vmrk\n'.format(sub_id)
 
         with open(fname_vhdr_renamed, 'w', encoding='UTF') as f:
             [f.write(l) for l in d_vhdr]
@@ -105,6 +105,8 @@ for sub_id in sub_ids:
         ## add automagic quality assessment to participants.tsv
         assessment_id = fname_sidecar.split('_')[-2][5:]
         d_participants.automagic_code[sub_id-1] = assessment_id
+
+        print('sub-{:03d} processed'.format(sub_id))
 
     except AssertionError:
         print('sub-{:03d} skipped - already processed'.format(sub_id))
