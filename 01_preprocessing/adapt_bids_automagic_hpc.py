@@ -5,7 +5,7 @@ import os.path as op
 
 sub_ids = [i for i in range(1,34)]
 
-base_folder_bids = '../../dataset/eeg_automagic'
+base_folder_bids = '../../dataset/eeg_BIDS/derivatives/automagic'
 base_folder_events = '../../dataset/events'  # where to find the detailed events
 
 # get participants.tsv
